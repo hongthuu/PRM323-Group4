@@ -272,3 +272,4 @@ class _LoginScreenState extends State<LoginScreen> {
     );
   }
 }
+// small UI improvement
