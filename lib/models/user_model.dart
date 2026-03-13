@@ -1,18 +1,21 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 
+/// User model used for mapping Firestore user data
 class UserModel {
   final String uid;
   final String name;
   final String email;
   final String studentId;
   final String role;
+
   final String? avatar;
   final String? phone;
   final String? faculty;
+
   final DateTime? createdAt;
   final DateTime? updatedAt;
 
-  UserModel({
+  const UserModel({
     required this.uid,
     required this.name,
     required this.email,
@@ -25,6 +28,7 @@ class UserModel {
     this.updatedAt,
   });
 
+  /// Create UserModel from Firestore document
   factory UserModel.fromFirestore(Map<String, dynamic> data, String uid) {
     return UserModel(
       uid: uid,
@@ -44,6 +48,7 @@ class UserModel {
     );
   }
 
+  /// Convert UserModel to Firestore map
   Map<String, dynamic> toMap() {
     return {
       'name': name,

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
-
+// Screen for viewing a public user profile (read-only)
 class PublicUserProfileScreen extends StatefulWidget {
   final String userId;
 

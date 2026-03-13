@@ -3,6 +3,7 @@ import '../auth/register_screen.dart';
 import '../home/main_screen.dart';
 import '../../services/auth_services.dart';
 
+/// Login screen for student authentication
 class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key});
 
@@ -11,8 +12,10 @@ class LoginScreen extends StatefulWidget {
 }
 
 class _LoginScreenState extends State<LoginScreen> {
-  final emailController = TextEditingController();
-  final passwordController = TextEditingController();
+  /// Controllers for input fields
+  final TextEditingController emailController = TextEditingController();
+  final TextEditingController passwordController = TextEditingController();
+
   final AuthService _authService = AuthService();
 
   bool obscurePassword = true;
@@ -21,22 +24,21 @@ class _LoginScreenState extends State<LoginScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.white,
+
       body: SafeArea(
         child: SingleChildScrollView(
           child: Padding(
             padding: const EdgeInsets.symmetric(horizontal: 24),
+
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 const SizedBox(height: 20),
 
-                /// BACK BUTTON
-                // const Icon(Icons.arrow_back, color: Colors.black87),
-                // const SizedBox(height: 20),
-
-                /// IMAGE
+                /// HEADER IMAGE
                 ClipRRect(
                   borderRadius: BorderRadius.circular(16),
+
                   child: Image.network(
                     "https://images.unsplash.com/photo-1562774053-701939374585",
                     height: 180,
@@ -44,6 +46,7 @@ class _LoginScreenState extends State<LoginScreen> {
                     fit: BoxFit.cover,
                   ),
                 ),
+
                 const SizedBox(height: 30),
 
                 /// TITLE
@@ -57,13 +60,16 @@ class _LoginScreenState extends State<LoginScreen> {
                     ),
                   ),
                 ),
+
                 const SizedBox(height: 10),
+
                 const Center(
                   child: Text(
                     "Login to manage and join campus events",
                     style: TextStyle(color: Colors.black54),
                   ),
                 ),
+
                 const SizedBox(height: 30),
 
                 /// EMAIL LABEL
@@ -74,24 +80,30 @@ class _LoginScreenState extends State<LoginScreen> {
                     fontWeight: FontWeight.w600,
                   ),
                 ),
+
                 const SizedBox(height: 8),
 
                 /// EMAIL FIELD
                 TextField(
                   controller: emailController,
                   style: const TextStyle(color: Colors.black87),
+
                   decoration: InputDecoration(
                     hintText: "name@university.edu",
                     hintStyle: const TextStyle(color: Colors.black38),
+
                     prefixIcon: const Icon(Icons.email, color: Colors.black45),
+
                     filled: true,
                     fillColor: Colors.grey.shade100,
+
                     border: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(12),
                       borderSide: BorderSide.none,
                     ),
                   ),
                 ),
+
                 const SizedBox(height: 20),
 
                 /// PASSWORD LABEL
@@ -102,6 +114,7 @@ class _LoginScreenState extends State<LoginScreen> {
                     fontWeight: FontWeight.w600,
                   ),
                 ),
+
                 const SizedBox(height: 8),
 
                 /// PASSWORD FIELD
@@ -109,10 +122,13 @@ class _LoginScreenState extends State<LoginScreen> {
                   controller: passwordController,
                   obscureText: obscurePassword,
                   style: const TextStyle(color: Colors.black87),
+
                   decoration: InputDecoration(
                     hintText: "Enter your password",
                     hintStyle: const TextStyle(color: Colors.black38),
+
                     prefixIcon: const Icon(Icons.lock, color: Colors.black45),
+
                     suffixIcon: IconButton(
                       icon: Icon(
                         obscurePassword
@@ -120,27 +136,33 @@ class _LoginScreenState extends State<LoginScreen> {
                             : Icons.visibility,
                         color: Colors.black45,
                       ),
+
                       onPressed: () {
                         setState(() {
                           obscurePassword = !obscurePassword;
                         });
                       },
                     ),
+
                     filled: true,
                     fillColor: Colors.grey.shade100,
+
                     border: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(12),
                       borderSide: BorderSide.none,
                     ),
                   ),
                 ),
+
                 const SizedBox(height: 10),
 
-                /// FORGOT PASSWORD
+                /// FORGOT PASSWORD BUTTON
                 Align(
                   alignment: Alignment.centerRight,
+
                   child: TextButton(
                     onPressed: () {},
+
                     child: const Text(
                       "Forgot password?",
                       style: TextStyle(
@@ -150,28 +172,33 @@ class _LoginScreenState extends State<LoginScreen> {
                     ),
                   ),
                 ),
+
                 const SizedBox(height: 20),
 
                 /// LOGIN BUTTON
                 SizedBox(
                   width: double.infinity,
                   height: 55,
+
                   child: ElevatedButton(
                     style: ElevatedButton.styleFrom(
                       backgroundColor: Colors.orange,
+
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(30),
                       ),
                     ),
+
                     onPressed: () async {
-                      String email = emailController.text;
-                      String password = passwordController.text;
+                      final String email = emailController.text.trim();
+                      final String password = passwordController.text;
 
                       try {
-                        String role = await _authService.login(
+                        final String role = await _authService.login(
                           email: email,
                           password: password,
                         );
+
                         if (context.mounted) {
                           Navigator.pushReplacement(
                             context,
@@ -188,6 +215,7 @@ class _LoginScreenState extends State<LoginScreen> {
                         }
                       }
                     },
+
                     child: const Text(
                       "Login",
                       style: TextStyle(
@@ -198,9 +226,10 @@ class _LoginScreenState extends State<LoginScreen> {
                     ),
                   ),
                 ),
+
                 const SizedBox(height: 20),
 
-                /// REGISTER
+                /// REGISTER LINK
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
@@ -208,6 +237,7 @@ class _LoginScreenState extends State<LoginScreen> {
                       "Don't have an account?",
                       style: TextStyle(color: Colors.black54),
                     ),
+
                     TextButton(
                       onPressed: () async {
                         final result = await Navigator.push(
@@ -216,10 +246,12 @@ class _LoginScreenState extends State<LoginScreen> {
                             builder: (context) => const RegisterScreen(),
                           ),
                         );
+
                         if (result != null && result is String) {
                           emailController.text = result;
                         }
                       },
+
                       child: const Text(
                         "Register here",
                         style: TextStyle(
@@ -230,6 +262,7 @@ class _LoginScreenState extends State<LoginScreen> {
                     ),
                   ],
                 ),
+
                 const SizedBox(height: 30),
               ],
             ),
