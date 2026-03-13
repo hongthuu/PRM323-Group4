@@ -74,3 +74,4 @@ class AuthService {
     return 'student'; // Fallback
   }
 }
+// improve readability
