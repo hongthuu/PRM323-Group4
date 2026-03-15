@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import '../../services/auth_services.dart';
 import '../auth/login_screen.dart';
 
-/// Register screen for creating new student accounts
 class RegisterScreen extends StatefulWidget {
   const RegisterScreen({super.key});
 
@@ -11,14 +10,11 @@ class RegisterScreen extends StatefulWidget {
 }
 
 class _RegisterScreenState extends State<RegisterScreen> {
-  /// Input controllers
-  final TextEditingController nameController = TextEditingController();
-  final TextEditingController studentIdController = TextEditingController();
-  final TextEditingController emailController = TextEditingController();
-  final TextEditingController passwordController = TextEditingController();
-
+  final nameController = TextEditingController();
+  final studentIdController = TextEditingController();
+  final emailController = TextEditingController();
+  final passwordController = TextEditingController();
   final AuthService _authService = AuthService();
-
   bool obscurePassword = true;
   bool _isLoading = false;
 
@@ -26,12 +22,10 @@ class _RegisterScreenState extends State<RegisterScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.white,
-
       body: SafeArea(
         child: SingleChildScrollView(
           child: Padding(
             padding: const EdgeInsets.symmetric(horizontal: 24),
-
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
@@ -40,12 +34,10 @@ class _RegisterScreenState extends State<RegisterScreen> {
                 /// BACK BUTTON
                 IconButton(
                   icon: const Icon(Icons.arrow_back, color: Colors.black87),
-
                   onPressed: () {
                     Navigator.pop(context);
                   },
                 ),
-
                 const SizedBox(height: 20),
 
                 /// TITLE
@@ -57,14 +49,11 @@ class _RegisterScreenState extends State<RegisterScreen> {
                     color: Colors.black87,
                   ),
                 ),
-
                 const SizedBox(height: 10),
-
                 const Text(
                   "Join the University Event Hub to discover and manage campus events.",
                   style: TextStyle(color: Colors.black54),
                 ),
-
                 const SizedBox(height: 30),
 
                 /// FULL NAME
@@ -75,27 +64,21 @@ class _RegisterScreenState extends State<RegisterScreen> {
                     fontWeight: FontWeight.w600,
                   ),
                 ),
-
                 const SizedBox(height: 8),
-
                 TextField(
                   controller: nameController,
                   style: const TextStyle(color: Colors.black87),
-
                   decoration: InputDecoration(
                     hintText: "e.g. Jane Doe",
                     hintStyle: const TextStyle(color: Colors.black38),
-
                     filled: true,
                     fillColor: Colors.grey.shade100,
-
                     border: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(12),
                       borderSide: BorderSide.none,
                     ),
                   ),
                 ),
-
                 const SizedBox(height: 20),
 
                 /// STUDENT ID
@@ -106,27 +89,21 @@ class _RegisterScreenState extends State<RegisterScreen> {
                     fontWeight: FontWeight.w600,
                   ),
                 ),
-
                 const SizedBox(height: 8),
-
                 TextField(
                   controller: studentIdController,
                   style: const TextStyle(color: Colors.black87),
-
                   decoration: InputDecoration(
                     hintText: "e.g. 12345678",
                     hintStyle: const TextStyle(color: Colors.black38),
-
                     filled: true,
                     fillColor: Colors.grey.shade100,
-
                     border: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(12),
                       borderSide: BorderSide.none,
                     ),
                   ),
                 ),
-
                 const SizedBox(height: 20),
 
                 /// EMAIL
@@ -137,27 +114,21 @@ class _RegisterScreenState extends State<RegisterScreen> {
                     fontWeight: FontWeight.w600,
                   ),
                 ),
-
                 const SizedBox(height: 8),
-
                 TextField(
                   controller: emailController,
                   style: const TextStyle(color: Colors.black87),
-
                   decoration: InputDecoration(
                     hintText: "e.g. jane.doe@university.edu",
                     hintStyle: const TextStyle(color: Colors.black38),
-
                     filled: true,
                     fillColor: Colors.grey.shade100,
-
                     border: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(12),
                       borderSide: BorderSide.none,
                     ),
                   ),
                 ),
-
                 const SizedBox(height: 20),
 
                 /// PASSWORD
@@ -168,18 +139,14 @@ class _RegisterScreenState extends State<RegisterScreen> {
                     fontWeight: FontWeight.w600,
                   ),
                 ),
-
                 const SizedBox(height: 8),
-
                 TextField(
                   controller: passwordController,
                   obscureText: obscurePassword,
                   style: const TextStyle(color: Colors.black87),
-
                   decoration: InputDecoration(
                     hintText: "Enter a strong password",
                     hintStyle: const TextStyle(color: Colors.black38),
-
                     suffixIcon: IconButton(
                       icon: Icon(
                         obscurePassword
@@ -187,40 +154,33 @@ class _RegisterScreenState extends State<RegisterScreen> {
                             : Icons.visibility,
                         color: Colors.black45,
                       ),
-
                       onPressed: () {
                         setState(() {
                           obscurePassword = !obscurePassword;
                         });
                       },
                     ),
-
                     filled: true,
                     fillColor: Colors.grey.shade100,
-
                     border: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(12),
                       borderSide: BorderSide.none,
                     ),
                   ),
                 ),
-
                 const SizedBox(height: 30),
 
                 /// CREATE ACCOUNT BUTTON
                 SizedBox(
                   width: double.infinity,
                   height: 55,
-
                   child: ElevatedButton(
                     style: ElevatedButton.styleFrom(
                       backgroundColor: Colors.orange,
-
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(30),
                       ),
                     ),
-
                     onPressed: _isLoading
                         ? null
                         : () async {
@@ -229,22 +189,12 @@ class _RegisterScreenState extends State<RegisterScreen> {
                             });
 
                             try {
-                              final String name = nameController.text.trim();
-
-                              final String studentId = studentIdController.text
-                                  .trim();
-
-                              final String email = emailController.text.trim();
-
-                              final String password = passwordController.text;
-
                               await _authService.register(
-                                name: name,
-                                studentId: studentId,
-                                email: email,
-                                password: password,
+                                name: nameController.text,
+                                studentId: studentIdController.text,
+                                email: emailController.text,
+                                password: passwordController.text,
                               );
-
                               if (context.mounted) {
                                 ScaffoldMessenger.of(context).showSnackBar(
                                   const SnackBar(
@@ -253,7 +203,6 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                     ),
                                   ),
                                 );
-
                                 Navigator.pushReplacement(
                                   context,
                                   MaterialPageRoute(
@@ -277,7 +226,6 @@ class _RegisterScreenState extends State<RegisterScreen> {
                               }
                             }
                           },
-
                     child: _isLoading
                         ? const SizedBox(
                             width: 24,
@@ -297,10 +245,9 @@ class _RegisterScreenState extends State<RegisterScreen> {
                           ),
                   ),
                 ),
-
                 const SizedBox(height: 20),
 
-                /// LOGIN LINK
+                /// LOGIN
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
@@ -308,12 +255,10 @@ class _RegisterScreenState extends State<RegisterScreen> {
                       "Already have an account?",
                       style: TextStyle(color: Colors.black54),
                     ),
-
                     TextButton(
                       onPressed: () {
                         Navigator.pop(context);
                       },
-
                       child: const Text(
                         "Log in",
                         style: TextStyle(
@@ -324,7 +269,6 @@ class _RegisterScreenState extends State<RegisterScreen> {
                     ),
                   ],
                 ),
-
                 const SizedBox(height: 30),
               ],
             ),

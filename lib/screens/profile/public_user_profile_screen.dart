@@ -228,4 +228,3 @@ class _PublicUserProfileScreenState extends State<PublicUserProfileScreen> {
     return Divider(color: Colors.grey.shade200, height: 1);
   }
 }
-S

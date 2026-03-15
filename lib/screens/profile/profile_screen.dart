@@ -7,7 +7,6 @@ import '../../models/club_member_model.dart';
 import '../auth/login_screen.dart';
 import 'edit_profile_screen.dart';
 
-// Profile screen showing user information and club memberships
 class ProfileScreen extends StatefulWidget {
   const ProfileScreen({super.key});
 
@@ -408,7 +407,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
       ),
     );
   }
-// Load user data and club memberships
+
   Widget _buildInfoRow(
     IconData icon,
     Color iconBgColor,

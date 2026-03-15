@@ -4,8 +4,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:image_picker/image_picker.dart';
 import '../../services/storage_services.dart';
-// Edit profile screen for updating user information
-// Refactored slightly for readability (no logic changes)
+
 class EditProfileScreen extends StatefulWidget {
   const EditProfileScreen({super.key});
 
